@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electron Require + Install</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .header {
+            font-size: 2em;
+            color: white;
+            background-color: #0078D7;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .script-container {
+            background-color: #ffffff;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+            text-align: left;
+            width: 80%;
+            max-width: 800px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        pre {
+            margin: 0;
+            font-family: Consolas, monospace;
+            font-size: 1em;
+            color: #333;
+        }
+        .copy-btn {
+            background-color: #0078D7;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .copy-btn:hover {
+            background-color: #005EA6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">Script Viewer</div>
+    <div class="script-container" id="script-box">
+<pre>
+"start": "if [ ! -d ./node_modules/electron ]; then npm install electron; fi && electron ."
+</pre>
+    </div>
+    <h1>Insert into the scripts section.</h1>
+    <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
+
+    <script>
+        function copyToClipboard() {
+            const scriptBox = document.getElementById('script-box').innerText;
+            navigator.clipboard.writeText(scriptBox).then(() => {
+                alert('Script copied to clipboard!');
+            }).catch(err => {
+                alert('Failed to copy script: ' + err);
+            });
+        }
+    </script>
+</body>
+</html>
