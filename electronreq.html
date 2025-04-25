@@ -58,10 +58,28 @@
     <div class="header">Script Viewer</div>
     <div class="script-container" id="script-box">
 <pre>
-"start": "if [ ! -d ./node_modules/electron ]; then npm install electron; fi && electron ."
+    const { execSync } = require('child_process');
+const electronPath = require('path').resolve('node_modules', '.bin', 'electron');
+
+try {
+    require.resolve('electron');
+    console.log('Electron is installed and ready!');
+} catch (error) {
+    console.log('Electron not found. Installing...');
+    try {
+        execSync('npm install electron --save-dev', { stdio: 'inherit' });
+        console.log('Electron installed successfully!');
+    } catch (installError) {
+        console.error('Failed to install Electron:', installError);
+        process.exit(1);
+    }
+}
+    // in JSON file add
+    "start": "npm run verify-electron && electron .",
+    "verify-electron": "node verifyElectron.js"
 </pre>
     </div>
-    <h1>Insert into the scripts section.</h1>
+    <h1>Create a new file "reqelectron.js"</h1>
     <button class="copy-btn" onclick="copyToClipboard()">Copy to Clipboard</button>
 
     <script>
